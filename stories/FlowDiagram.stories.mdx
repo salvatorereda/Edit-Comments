@@ -1,0 +1,31 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import FlowDiagram from '../components/FlowDiagram.vue';
+
+<Meta title="Edit Comment/Flow Diagram" component={FlowDiagram} />
+
+# Edit Comment: Flow
+
+How a person gets from posting a reply to editing it, and every way out of
+the editor. Solid steps are in the Figma mocks. Dashed steps are proposed
+here to fill the gaps the mocks leave open. Click any step to open it in
+**Edit Comment/Thread**.
+
+Open questions this raises:
+
+- **Who can edit?** The mock limits Edit to the author of a reply, the same
+  rule as Delete today. The thread's first comment (the topic) has no ⋮ menu
+  in the app today, so it can't be edited here either.
+- **Menu order.** Figma lists Delete above Edit. Most menus put the
+  destructive item last.
+- **"Edited" label.** Should others see that a comment changed, and when?
+- **Notifications.** Does an edit notify people in the thread, or mark the
+  thread unread for them?
+
+export const Template = () => ({
+  components: { FlowDiagram },
+  template: `<div style="padding: 24px; background: #fff;"><FlowDiagram /></div>`,
+});
+
+<Canvas>
+  <Story name="Flow">{Template.bind({})}</Story>
+</Canvas>

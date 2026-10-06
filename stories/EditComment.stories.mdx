@@ -1,0 +1,123 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+import CommentThreadPanel from '../components/CommentThreadPanel.vue';
+
+<Meta title="Edit Comment/Thread" component={CommentThreadPanel} />
+
+# Edit a Comment
+
+The Comments panel with a thread open, built from the real `CommentContent`,
+`CommentTextArea`, `SkpKebab`, `SkpButton`, `SkpDialog` and emoji picker. It
+follows the RTC - GO 2026 Figma section "Edit Comments".
+
+Every story below is the same working panel, started at a different step, so
+you can click through the whole flow from any of them. You are **Maya
+Sanchez**: only your own reply has a ⋮ menu, the same rule the app uses for
+Delete today.
+
+1. **Photo attached**: the new-comment box has a photo. Type a comment.
+2. **Comment written**: send it with the arrow, or ⌘ + Enter.
+3. **Comment posted**: your reply is in the thread. Open its ⋮.
+4. **Comment menu**: *Delete comment* (works as today) or *Edit comment*.
+5. **Editing**: the reply turns into an editor in place, with its photo, its
+   text, + (add or update the photo), emoji, **Cancel** and **Save changes**.
+   The new-comment box hides while you edit.
+6. **Unsaved changes** *(proposed)*: Save changes turns on once something
+   changes. It stays off if you remove both the text and the photo.
+7. **Discard Changes?** *(proposed)*: Cancel or Esc after editing asks first.
+   Cancel with no changes just closes the editor.
+8. **Saved** *(proposed)*: the reply updates in place and its timestamp reads
+   "Edited".
+
+See **Edit Comment/Flow Diagram** for the map of these steps.
+
+export const Template = (args) => ({
+  components: { CommentThreadPanel },
+  setup() { return { args }; },
+  template: `
+    <div style="padding: 24px; background: #c8d6e0; min-height: 1000px; display: flex; justify-content: flex-end; align-items: flex-start;">
+      <CommentThreadPanel v-bind="args" :key="args.start" />
+    </div>
+  `,
+});
+
+export const PhotoAttached = Template.bind({});
+PhotoAttached.args = { start: 'photoAttached' };
+
+export const CommentWritten = Template.bind({});
+CommentWritten.args = { start: 'commentWritten' };
+
+export const Posted = Template.bind({});
+Posted.args = { start: 'posted' };
+
+export const MenuOpen = Template.bind({});
+MenuOpen.args = { start: 'menuOpen' };
+
+export const Editing = Template.bind({});
+Editing.args = { start: 'editing' };
+
+export const EditingWithChanges = Template.bind({});
+EditingWithChanges.args = { start: 'editingWithChanges' };
+
+export const DiscardPrompt = Template.bind({});
+DiscardPrompt.args = { start: 'discardPrompt' };
+
+export const Saved = Template.bind({});
+Saved.args = { start: 'saved' };
+
+## 1. Photo attached
+
+Figma: *User Uploads image*.
+
+<Canvas>
+  <Story name="1. Photo attached">{PhotoAttached}</Story>
+</Canvas>
+
+## 2. Comment written
+
+Figma: *Writes comment*.
+
+<Canvas>
+  <Story name="2. Comment written">{CommentWritten}</Story>
+</Canvas>
+
+## 3. Comment posted
+
+Figma: *Edit comment 1*.
+
+<Canvas>
+  <Story name="3. Comment posted">{Posted}</Story>
+</Canvas>
+
+## 4. Comment menu open
+
+Figma: *Thread Web / Delete* menu.
+
+<Canvas>
+  <Story name="4. Comment menu open">{MenuOpen}</Story>
+</Canvas>
+
+## 5. Editing
+
+Figma: *Edit comment mode 2*.
+
+<Canvas>
+  <Story name="5. Editing">{Editing}</Story>
+</Canvas>
+
+## 6. Editing with unsaved changes (proposed)
+
+<Canvas>
+  <Story name="6. Editing with unsaved changes">{EditingWithChanges}</Story>
+</Canvas>
+
+## 7. Discard Changes? prompt (proposed)
+
+<Canvas>
+  <Story name="7. Discard Changes? prompt">{DiscardPrompt}</Story>
+</Canvas>
+
+## 8. Saved and marked Edited (proposed)
+
+<Canvas>
+  <Story name="8. Saved and marked Edited">{Saved}</Story>
+</Canvas>

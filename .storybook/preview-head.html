@@ -1,0 +1,19 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  /*
+   * Mirrors source's frontend/public/sass/_app.scss, which sets both of
+   * these once, globally, on `body` and lets every component inherit
+   * them. Component text mixins (h1-text..standard-text in _mixins.scss)
+   * set color/weight/letter-spacing but frequently leave font-family and
+   * font-size to inherit too (e.g. FaceInfo.vue's `.value` class has
+   * neither) — without this rule, that text falls back to the browser's
+   * default serif font at 16px instead of Open Sans at 10pt ($default-font
+   * / $default-font-size in _constants.scss).
+   */
+  body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10pt;
+  }
+</style>
