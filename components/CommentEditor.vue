@@ -150,7 +150,7 @@ const emit = defineEmits<CommentEditorEmits>();
 
 const text = ref(
   props.startDirty
-    ? props.initialText.replace('awning depth', 'awning depth and color')
+    ? props.initialText.replace('some lighting', 'some exterior lighting')
     : props.initialText
 );
 const image = ref<string | null>(props.initialImage);

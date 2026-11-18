@@ -30,7 +30,7 @@ changes for the edit-comment flow:
         :timestamp="timestamp"
         :mainColor="props.comment.author.mainColor"
         :outlineColor="props.comment.author.outlineColor"
-        :commentText="props.comment.text"
+        :commentText="props.comment.image ? '' : props.comment.text"
       >
         <div :class="$style['actions-group']">
           <RightSidebarIconButton
@@ -72,6 +72,13 @@ changes for the edit-comment flow:
           data-testid="comment-photo"
         />
       </div>
+      <p
+        v-if="props.comment.image && props.comment.text"
+        :class="$style['photo-caption']"
+        data-testid="comment-photo-caption"
+      >
+        {{ props.comment.text }}
+      </p>
       <div :class="$style['reactions']">
         <span
           v-for="(info, character) in reactionCounts"
@@ -332,6 +339,14 @@ onMounted(async () => {
     position: fixed;
     --emoji-font-family: 'Apple Color Emoji';
   }
+}
+
+.photo-caption {
+  margin: 0;
+  padding: 0 8px 0 40px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  line-height: 18px;
 }
 
 .image-container {

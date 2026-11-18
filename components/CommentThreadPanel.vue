@@ -112,8 +112,9 @@ import { provide, ref } from 'vue';
 
 import {
   CURRENT_USER,
-  MAYA_DRAFT_TEXT,
+  MAYA_POSTED_TEXT,
   MAYA_REPLY,
+  MAYA_WRITTEN_TEXT,
   REPLIES,
   STOREFRONT_PHOTO,
   TOPIC,
@@ -129,6 +130,7 @@ import { TrimbleConnectProviderKey } from '@/models/CommentTypes';
 import RightSidebarPanel from '@/views/modelScreen/rightSidebar/RightSidebarPanel.vue';
 
 type StartState =
+  | 'create'
   | 'photoAttached'
   | 'commentWritten'
   | 'posted'
@@ -156,13 +158,15 @@ function clone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
 }
 
-const posted = !['photoAttached', 'commentWritten'].includes(props.start);
+const posted = !['create', 'photoAttached', 'commentWritten'].includes(props.start);
 
 const topic = ref(clone(TOPIC));
 const replies = ref(posted ? [...clone(REPLIES), clone(MAYA_REPLY)] : clone(REPLIES));
 
-const draftText = ref(props.start === 'commentWritten' ? MAYA_DRAFT_TEXT : '');
-const draftImage = ref<string | null>(posted ? null : STOREFRONT_PHOTO);
+const draftText = ref(props.start === 'commentWritten' ? MAYA_WRITTEN_TEXT : '');
+const draftImage = ref<string | null>(
+  props.start === 'photoAttached' || props.start === 'commentWritten' ? STOREFRONT_PHOTO : null
+);
 
 const editingId = ref<string | null>(
   ['editing', 'editingWithChanges', 'discardPrompt'].includes(props.start)
@@ -171,9 +175,14 @@ const editingId = ref<string | null>(
 );
 const confirmDiscard = ref(props.start === 'discardPrompt');
 
+if (props.start === 'posted') {
+  const mine = replies.value[replies.value.length - 1];
+  mine.text = MAYA_POSTED_TEXT;
+}
+
 if (props.start === 'saved') {
   const mine = replies.value[replies.value.length - 1];
-  mine.text = MAYA_DRAFT_TEXT.replace('awning depth', 'awning depth and color');
+  mine.text = '';
   mine.editedAt = '2026-08-23T09:42:00';
 }
 

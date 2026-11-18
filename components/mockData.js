@@ -56,9 +56,15 @@ export const REPLIES = [
   },
 ];
 
-// What Maya types in the Figma "Writes comment" frame.
-export const MAYA_DRAFT_TEXT =
-  '👍 Here is the storefront with the new awning. Reference: https://www.modernhomesportland.com/project/rummer-homes/ Does the awning depth read right from the patio?';
+// Comment written: the sentence under the awning photo, before it is posted.
+export const MAYA_WRITTEN_TEXT =
+  'Here is the storefront with the new awning. We need to ad some lighting if thats possible';
+
+export const MAYA_DRAFT_TEXT = '';
+
+// Comment posted: the sentence under the awning photo.
+export const MAYA_POSTED_TEXT =
+  'Here is the storefront with the new awning. We need to add some lighting if thats possible';
 
 export const MAYA_REPLY = {
   id: 'reply-maya',
