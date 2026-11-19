@@ -51,7 +51,12 @@ the edit-comment flow added. The whole flow is clickable from any start state:
         />
 
         <!-- New-comment box. Hidden while a comment is being edited, as in Figma. -->
-        <div v-if="editingId == null" :class="$style['comment-input-container']">
+        <div
+          v-if="editingId == null"
+          ref="composer"
+          :class="$style['comment-input-container']"
+          @keydown.enter.capture="submitOnReturn"
+        >
           <div v-if="draftImage != null" :class="$style['image-container']">
             <img
               :class="$style['image']"
@@ -108,7 +113,7 @@ import {
   CommentsIcon,
   DeleteIcon,
 } from '@resources/menu';
-import { provide, ref } from 'vue';
+import { nextTick, provide, ref, watch } from 'vue';
 
 import {
   CURRENT_USER,
@@ -184,6 +189,33 @@ if (props.start === 'saved') {
   const mine = replies.value[replies.value.length - 1];
   mine.text = '';
   mine.editedAt = '2026-08-23T09:42:00';
+}
+
+const composer = ref<HTMLElement | null>(null);
+
+function labelReturnToSubmit(): void {
+  const area = composer.value?.querySelector('textarea');
+  if (area instanceof HTMLTextAreaElement) {
+    area.placeholder = 'Press Return to submit your comment.';
+  }
+}
+
+watch(composer, () => {
+  void nextTick(labelReturnToSubmit);
+});
+
+function submitOnReturn(event: KeyboardEvent): void {
+  if (event.shiftKey || event.isComposing || event.keyCode === 229) {
+    return;
+  }
+  if (!(event.target instanceof HTMLTextAreaElement)) {
+    return;
+  }
+  event.preventDefault();
+  event.stopPropagation();
+  if (draftText.value.length > 0 || draftImage.value != null) {
+    postDraft();
+  }
 }
 
 function postDraft(): void {

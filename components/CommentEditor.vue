@@ -7,7 +7,7 @@ button is swapped for Cancel / Save changes.
 New behavior (not in source yet):
 - Save changes is disabled until something changed, and when the edit would
   leave the comment with neither text nor a photo.
-- ⌘/Ctrl + Enter saves (same shortcut that submits a new comment), Esc cancels.
+- Return saves (same key that submits a new comment), Esc cancels.
 -->
 <template>
   <div
@@ -185,10 +185,8 @@ function save(): void {
   }
 }
 
-const isMac = navigator.platform.toUpperCase().includes('MAC');
-
 function checkSave(event: KeyboardEvent): void {
-  if (!(isMac ? event.metaKey : event.ctrlKey)) {
+  if (event.shiftKey || event.isComposing || event.keyCode === 229) {
     return;
   }
   event.preventDefault();

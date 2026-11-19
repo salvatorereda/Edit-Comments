@@ -103,7 +103,7 @@ const nodes: FlowNode[] = [
   { id: 'photo', x: L, y: 20, title: '1 · Photo attached', sub: 'New-comment box: photo, no text yet', tag: 'Figma', kind: 'figma', story: '1. Photo attached' },
   { id: 'written', x: L, y: 130, title: '2 · Comment written', sub: 'Text, emoji and a link added', tag: 'Figma', kind: 'figma', story: '2. Comment written' },
   { id: 'posted', x: L, y: 240, title: '3 · Comment posted', sub: 'Your reply has a menu; others’ don’t', tag: 'Figma', kind: 'figma', story: '3. Comment posted' },
-  { id: 'menu', x: L, y: 350, title: '4 · Comment menu', sub: 'Delete comment · Edit comment', tag: 'Figma', kind: 'figma', story: '4. Comment menu open' },
+  { id: 'menu', x: L, y: 350, title: '4 · Comment menu', sub: 'Edit comment · Delete comment', tag: 'Figma', kind: 'figma', story: '4. Comment menu open' },
   { id: 'deleted', x: R, y: 350, title: 'Comment deleted', sub: 'Unchanged from today', tag: 'Today', kind: 'today' },
   { id: 'editing', x: L, y: 470, title: '5 · Editing', sub: 'Editor in place; new-comment box hides', tag: 'Figma', kind: 'figma', story: '5. Editing' },
   { id: 'dirty', x: L, y: 580, title: '6 · Unsaved changes', sub: 'Save changes turns on', tag: 'Proposed', kind: 'proposed', story: '6. Editing with unsaved changes' },
@@ -115,12 +115,12 @@ const C = L + 140; // main column center
 
 const edges = ([
   { id: 'a-b', d: `M${C},80 V128`, label: 'Type a comment', lx: C + 8, ly: 108 },
-  { id: 'b-c', d: `M${C},190 V238`, label: 'Send (or ⌘ + Enter)', lx: C + 8, ly: 218 },
+  { id: 'b-c', d: `M${C},190 V238`, label: 'Send (or Return)', lx: C + 8, ly: 218 },
   { id: 'c-d', d: `M${C},300 V348`, label: 'Open your reply’s menu', lx: C + 8, ly: 328 },
   { id: 'd-e', d: `M${L + 280},380 H${R - 2}`, label: 'Delete comment', lx: 380, ly: 372, anchor: 'middle' },
   { id: 'd-f', d: `M${C},410 V468`, label: 'Edit comment', lx: C + 8, ly: 444 },
   { id: 'f-g', d: `M${C},530 V578`, label: 'Change text or photo', lx: C + 8, ly: 558, proposed: true },
-  { id: 'g-h', d: `M${C},640 V698`, label: 'Save changes (or ⌘ + Enter)', lx: C + 8, ly: 674, proposed: true },
+  { id: 'g-h', d: `M${C},640 V698`, label: 'Save changes (or Return)', lx: C + 8, ly: 674, proposed: true },
   { id: 'g-i', d: `M${L + 280},600 H${R - 2}`, label: 'Cancel (or Esc)', lx: 380, ly: 592, anchor: 'middle', proposed: true },
   { id: 'i-g', d: `M${R},622 H${L + 282}`, label: 'Keep Editing', lx: 380, ly: 638, anchor: 'middle', proposed: true },
   { id: 'i-c', d: `M${R + 280},610 H744 V270 H${L + 282}`, label: 'Discard: back to the posted comment', lx: 756, ly: 440, anchor: 'middle', rotate: true, proposed: true },

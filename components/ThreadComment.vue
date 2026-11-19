@@ -186,22 +186,22 @@ const reactionCounts = computed(() =>
   )
 );
 
-// Figma order: Delete comment, then Edit comment.
+// Edit sits above Delete in the flyout.
 const kebabOptions = computed(() => {
   if (props.isTopic || !props.canEdit) {
     return [];
   }
   return [
     {
+      label: $t('Edit comment'),
+      eventId: 'edit',
+      testId: 'edit-comment-option',
+    },
+    {
       label: $t('Delete comment'),
       eventId: 'delete',
       className: componentStyle['list-item-delete'],
       testId: 'delete-comment-option',
-    },
-    {
-      label: $t('Edit comment'),
-      eventId: 'edit',
-      testId: 'edit-comment-option',
     },
   ];
 });
